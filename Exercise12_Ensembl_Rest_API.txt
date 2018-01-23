@@ -1,0 +1,25 @@
+### mapping location of variant rs4224828 in the mouse ###
+	#get gene ID
+curl 'https://rest.ensembl.org/variant_recoder/mouse/rs4224828?' -H 'Content-type:application/json'
+	#output	
+[{"hgvsc":["ENSMUST00000088677.4:c.*363T>C","NM_001285482.1:c.*363T>C","NM_001285483.1:c.*363T>C","NM_001285484.1:c.*363T>C","NM_008309.5:c.*363T>C","XM_006538577.2:c.*363T>C","XM_006538578.2:c.*363T>C","XM_017319986.1:c.*363T>C"],"input":"rs4224828","id":["rs4224828"],"hgvsg":["NC_000070.6:g.136443949T>C"]}]
+	gene ID = ENSMUST00000088677.4
+	# get gene location
+curl 'https://rest.ensembl.org/sequence/id/ENSMUST00000088677.4?type=genomic' -H 'Content-type:application/json'
+	#output
+{"desc":"chromosome:GRCm38:4:136423524:136444398:1","query":"ENSMUST00000088677.4","id":"ENSMUST00000088677","seq":"AAGC...GAC","molecule":"dna"}
+	gene location = GRCm38:4:136423524:136444398:1
+
+### first 100 bases of Notch1 gene in the mouse genome
+	#get Notch1 gene ID + location
+	curl 'https://rest.ensembl.org/lookup/symbol/Mus_Musculus/Notch1?' -H 'Content-type:application/json'
+	#output
+	{"source":"ensembl_havana","object_type":"Gene","logic_name":"ensembl_havana_gene","version":15,"species":"Mus_Musculus","description":"notch 1 [Source:MGI Symbol;Acc:MGI:97363]","display_name":"Notch1","assembly_name":"GRCm38","biotype":"protein_coding","end":26516663,"seq_region_name":"2","db_type":"core","strand":-1,"id":"ENSMUSG00000026923","start":26457903}
+	gene ID = ENSMUSG00000026923
+	#return sequence
+	curl 'https://rest.ensembl.org/sequence/id/ENSMUSG00000026923?start=0;end=100;type=genomic' -H 'Content-type:text/x-fasta'
+	#output
+	>ENSMUSG00000026923 chromosome:GRCm38:2:26516564:26516663:-1
+	CTCCTGTGTGTTCAGGCACAAGCTGGAATGCAGACCCCATTGCTCTCCTTGGCTGGAGCA
+	ACAACGGAGCTCTGCTTTCTGCCTGCCTCAGTCCTGGCCT
+
