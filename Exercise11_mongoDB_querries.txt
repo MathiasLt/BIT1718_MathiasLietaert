@@ -1,0 +1,33 @@
+### number of medicines taken with a lozenge ###
+db.hospital.find( 
+    {
+        "method_of_admission": ''
+    },
+    {
+        _id:0,
+        "drug":1
+    }
+)
+
+### number of medicines with 12%+ chance on side effects ###
+db.hospital.find( 
+    {
+        "percentage_of_side_effects": {$gt: 12}
+    }
+)
+.count()
+
+### output ###
+12
+
+### names of the companies producing medicines with avgerage >10% chance on side effects sorted by % ###
+db.hospital.aggregate( 
+    [
+        { $group: { 
+            _id: {company: "$company"}, 
+            avg: { $avg: "$percentage_of_side_effects"}
+            }
+        }, { $sort: { avg:-1 } }
+    ]
+)
+
