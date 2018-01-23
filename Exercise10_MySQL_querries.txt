@@ -1,0 +1,31 @@
+### name + length smallest gene ###
+SELECT gene_name, seq_region_end - seq_region_start + 1 AS gene_length FROM gene ORDER BY gene_length LIMIT 1;
+#	gene_name	gene_length
+	TRDD1		8
+
+### gene with the most transcripts + number of transcripts ###
+SELECT gene_name, COUNT(*) AS 'number of transcripts' FROM gene JOIN transcript ON gene.gene_id = transcript.gene_id GROUP BY transcript.gene_id ORDER BY COUNT(*) DESC LIMIT 1;
+#	gene_name	number of transcripts
+	NDRG2		80
+
+### chromosome with the second most genes related to cancer ###
+SELECT chromosome FROM gene WHERE description LIKE '%cancer%' GROUP BY chromosome ORDER BY COUNT(chromosome) DESC LIMIT 1 OFFSET 1;
+#	chromosome
+	9
+### number of exons on the chromosome ###
+SELECT COUNT(*) AS 'number of exons' FROM gene JOIN transcript ON gene.gene_id = transcript.gene_id JOIN exon_transcript ON transcript.transcript_id = exon_transcript.transcript_id JOIN exon ON exon_transcript.exon_id = exon.exon_id WHERE chromosome = 9 GROUP BY chromosome ORDER BY COUNT(*) DESC;
+#	number of exons
+	45679
+
+### number of rows in the exon table ###
+SELECT COUNT(*) AS 'nr. of rows' FROM exon;
+#	nr. of rows
+	642590
+### number of rows in the exon_transcript table ###
+SELECT COUNT(*) AS 'nr. of rows' FROM exon_transcript;
+#	nr. of rows
+	1178393
+een exon is een nucleotide sequentie, van een nucleotide sequentie kunnen meerdere eiwit transcripten afgeschreven worden. in de exon_transcript tabel bevinden zich dus meerdere transcripts per exon --> meer rijen.
+
+
+
