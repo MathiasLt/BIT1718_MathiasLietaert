@@ -1,0 +1,25 @@
+UNF	All data grouped in one table
+
+Lab(PersonnelNo, Name, Date of birth, Lab code, Lab name, Research Project(Research code, Research supervisor, Research description))
+
+1NF	Removal of repeating group
+	Assignment of primary keys
+
+Lab(PersonnelNo, Name, Date of birth, Lab code, Lab name)
+Research(Research code, Research supervisor, Research description)
+	Primary keys:	PersonnelNo
+			Lab code
+			Research code
+
+2NF	No Partial Dependency
+
+Lab(PersonnelNo, Lab code, Lab Name, Research code)
+Personnel(PersonnelNo, Name, Date of birth)
+Research(Research code, Research supervisor, Research description)
+
+3NF	No transitive Dependency
+
+Lab(PersonnelNo, Lab code, Research code)
+Personnel(PersonnelNo, Name, Date of birth)
+Lab_info(Lab code, Lab name)
+Research(Research code, Research supervisor, Research description)
